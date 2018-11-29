@@ -65,6 +65,31 @@ public class RegisterFragment extends Fragment {
 
         } else {
 
+            try {
+                MyConstant myConstant = new MyConstant();
+                AddUserToServer addUserToServer = new AddUserToServer(getActivity());
+                addUserToServer.execute(nameString, userString, passwordString, myConstant.getUrlAddUserString());
+
+                String resultFromPHP = addUserToServer.get();
+
+                if (Boolean.parseBoolean(resultFromPHP)) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    MyAlert myAlert = new MyAlert(getActivity());
+                    myAlert.normalDialog("Cannot Upload", "Please Try again");
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+
+//            No Space
+
+
+
         }
 
 
