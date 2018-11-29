@@ -6,8 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 
 /**
@@ -30,6 +34,51 @@ public class RegisterFragment extends Fragment {
 
     }   //Main Method
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.itemUpload) {
+
+            checkSpace();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void checkSpace() {
+
+        EditText nameEditText = getView().findViewById(R.id.edtName);
+        EditText userEditText = getView().findViewById(R.id.edtUser);
+        EditText passwordEditText = getView().findViewById(R.id.edtPassword);
+
+        String nameString = nameEditText.getText().toString().trim();
+        String userString = userEditText.getText().toString().trim();
+        String passwordString = passwordEditText.getText().toString().trim();
+
+        if (nameString.isEmpty() || userString.isEmpty() || passwordString.isEmpty()) {
+
+//            Have Space
+            MyAlert myAlert = new MyAlert(getActivity());
+            myAlert.normalDialog("Have Space", "Please Fill Every Blank");
+
+
+        } else {
+
+        }
+
+
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_register, menu);
+
+    }
+
     private void createToolbar() {
         Toolbar toolbar = getView().findViewById(R.id.toolbarRegister);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
@@ -45,6 +94,7 @@ public class RegisterFragment extends Fragment {
                         .popBackStack();
             }
         });
+        setHasOptionsMenu(true);
     }
 
     @Override
